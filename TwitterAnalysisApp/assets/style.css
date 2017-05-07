@@ -1,0 +1,27 @@
+html {
+  height: 100%;
+}
+body{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+#map-canvas {
+  width: 600px;
+  height: 400px;
+  background-color: grey;
+}
+#map-canvas1 {
+  width: 600px;
+  height: 400px;
+  background-color: grey;
+}
+#map-canvas2 {
+  width: 600px;
+  height: 400px;
+  background-color: grey;
+}
+#content {
+  padding-left: 150px;
+  margin: 20px;
+}
