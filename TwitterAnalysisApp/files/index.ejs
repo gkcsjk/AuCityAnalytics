@@ -9,73 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/Script/script.js"></script>
 </head>
-<body>
-    <!-- <h3>Customers</h3>
-    <form method="post" action="/customer/add">
-        <input type="text" name="name" placeholder="Add Name">
-        <input type="text" name="email" placeholder="Add Email">
-        <input type="submit" value="Submit">
-    </form>
-    <h3>Customers</h3>
-    <ul>
-    <% customers.forEach(function(customer){ %>
-        <li>
-            <h4><%= customer.value.name %></h4>
-            <%= customer.value.email %>
-            <form method="post" action="/customer/delete/<%= customer.key %>">
-            <input type="hidden" value="<%= customer.value.rev %>" name="rev">
-            <input type="submit" value="X">
-            </form>
-        </li>
-    <% }); %>
-    </ul>
-    <h1 align="center"><br />Welcome!<br /></h1>
-    <h4 align="center"><br />Please select:<br /></h4>
-    <br /><br />
-    <div class="container">
-        <div class="row">
-            <div align="center" class="span4">
-                <a href="map" class="btn btn-success">Emotion Changes</a>
-                <br /><br />
-                <a href="/HTML/Sports_Emotion.html" class="btn btn-warning">Sports and Emotion</a>
-                <br /><br />
-                <a href="/HTML/Coordinate_Distribute.html" class="btn btn-info">Coordinates</a>
-                <br /><br />
-            </div>
-        </div>
-    </div> -->
-
-    
+<body> 
     <div class = "container">
         <br/>
         <div>
-
-            <!-- <ul class="nav nav-pills">
-                <li><a data-toggle="pill" href="#map1">Emotion</a></li>
-                <li><a data-toggle="pill" href="#map2">Sports</a></li>
-                <li><a data-toggle="pill" href="#map3">Coordinates</a></li>
-            </ul> -->
-
-            <!-- <div class="tab-content">
-                <div id="map1" class="tab-pane fade in active">
-                    <div align="center" class="span4">
-                      <div id="map-canvas"></div>
-                    </div>
-                    <br/>
-                </div>
-                <div id="map2" class="tab-pane fade">
-                    <div align="center" class="span4">
-                      <div id="map-canvas1"></div>
-                    </div>
-                    <br/>
-                </div>
-                <div id="map3" class="tab-pane fade">
-                    <div align="center" class="span4">
-                      <div id="map-canvas2"></div>
-                    </div>
-                    <br/>
-                </div>
-            </div> -->
             <div id="content">
                 <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#map1">
                     Coordinates
@@ -118,6 +55,7 @@
             <script src="/Script/List.js"></script>
             <script src="/Script/Mapster.js"></script>
             <script src="/Script/map-options.js"></script>
+            <!-- <script src="/Home/bundle.js"></script> -->
             <script src="/Script/script.js"></script>
         </div>
     </div>

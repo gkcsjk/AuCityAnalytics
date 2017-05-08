@@ -11,8 +11,8 @@ const couch = new NodeCouchDb({
 	}
 });
 
-const dbName = 'customers';
-const viewUrl = '_design/all_customers/_view/all';
+const dbName = 'tiny_twitter';
+const viewUrl = '/_design/coordinates_all/_view/all_coordinates';
 
 couch.listDatabases().then(function(dbs){
 	console.log(dbs);

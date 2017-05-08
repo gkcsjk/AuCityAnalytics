@@ -9,30 +9,36 @@
   element2 = document.getElementById('map-canvas2'),
   map2 = mapster.create(element2, options);
   
-  var marker = map.addMarker({
-    lat: -37.814,
-    lng: 144.963,
-    draggable: true,
-    content: '<div style = "color: #f00;">I like food</div>'
-  });
+  // tiny_twitter.forEach(function(twitter){
+  //   var coordinate = twitter.value.the_coordinate;
+  //   console.log(coordinate);
+  // });
+  
+  var coor = [];
+  coor.forEach(function(coordinate){
+    map.addMarker({
+      lat: coordinate[0],
+      lng: coordinate[1],
+      draggable: false,
+    });    
+  });  
 
-  var marker2 = map.addMarker({
-    id: 2,
-    lat: -37.815,
-    lng: 144.964,
-    draggable: true,
-    content: 'I like meat'
-  });
+  // var marker = map.addMarker({
+  //   lat: -37.814,
+  //   lng: 144.963,
+  //   draggable: true,
+  //   content: '<div style = "color: #f00;">I like food</div>'
+  // });
 
-  //map._removeMarker(marker2);
+  // var marker2 = map.addMarker({
+  //   id: 2,
+  //   lat: -37.815,
+  //   lng: 144.964,
+  //   draggable: true,
+  //   content: 'I like meat'
+  // });
 
   //console.log(map.markers);
 
-  var found = map.findBy(function(marker) {
-    return marker.id === 2;
-  });
-
-  // var found = map.findMarkerByLat(-37.815);
-  console.log(found);
 
 }(window, google, window.Mapster || (window.Mapster = {})));
