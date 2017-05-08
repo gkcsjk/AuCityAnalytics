@@ -55,12 +55,39 @@
             <script src="/Script/List.js"></script>
             <script src="/Script/Mapster.js"></script>
             <script src="/Script/map-options.js"></script>
-            <!-- <script src="/Home/bundle.js"></script> -->
-            <script src="/Script/script.js"></script>
+            <script>
+                var heatmapData = [];
+                <% tiny_twitter.forEach(function(tweets){ %>
+                    var coor = [<%= tweets.value.the_coordinate %>];
+                    heatmapData.push(coor);
+                <% }); %>
+            </script>
+    
+            <script>
+                (function(window, google, mapster) {
+                  var options = mapster.MAP_OPTIONS,
+                  element = document.getElementById('map-canvas'),
+                  map = mapster.create(element, options);
+
+                  element1 = document.getElementById('map-canvas1'),
+                  map1 = mapster.create(element1, options);
+
+                  element2 = document.getElementById('map-canvas2'),
+                  map2 = mapster.create(element2, options);
+                  
+                  var coor = heatmapData;
+                  console.log(coor);
+                  coor.forEach(function(coordinate){
+                    map.addMarker({
+                      lat: Number(coordinate[1]),
+                      lng: Number(coordinate[0]),
+                      draggable: false,
+                    })
+                  });  
+                }(window, google, window.Mapster || (window.Mapster = {})));
+            </script>
         </div>
     </div>
-
-
 </div>
     
 </body>

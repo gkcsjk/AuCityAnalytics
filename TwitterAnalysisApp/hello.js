@@ -41,7 +41,7 @@ app.get('/', function(req, res){
 		function(data, headers, status){
 			//console.log(data.data.rows);
 			res.render('index',{
-				customers:data.data.rows
+				tiny_twitter:data.data.rows
 			});
 		},
 		function(err){
