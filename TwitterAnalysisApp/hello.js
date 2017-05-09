@@ -16,7 +16,7 @@ const couch = new NodeCouchDb({
 // const viewUrl = '/_design/coordinates_all/_view/all_coordinates';
 
 const dbName = 'emlbourne_ans';
-const viewUrl = '_design/melbourme_view/_view/with_coordinate';
+const viewUrl = '_design/melbourme_view/_view/five_lang';
 
 couch.listDatabases().then(function(dbs){
 	console.log(dbs);
