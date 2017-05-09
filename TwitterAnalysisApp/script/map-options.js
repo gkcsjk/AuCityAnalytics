@@ -1,10 +1,10 @@
 (function(window, google, mapster) {
   mapster.MAP_OPTIONS = {
     center: {
-      lat: -27.5480766,
-      lng: 135.4477678
+      lat: -37.96,
+      lng: 145
     },
-    zoom: 4,
+    zoom: 9,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.DEFAULT

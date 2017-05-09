@@ -23,12 +23,12 @@
 //     });    
 //   });  
 
-//   // var marker = map.addMarker({
-//   //   lat: -37.814,
-//   //   lng: 144.963,
-//   //   draggable: true,
-//   //   content: '<div style = "color: #f00;">I like food</div>'
-//   // });
+  // var marker = map.addMarker({
+  //   lat: -37.814,
+  //   lng: 144.963,
+  //   draggable: true,
+  //   content: '<div style = "color: #f00;">I like food</div>'
+  // });
 
 //   // var marker2 = map.addMarker({
 //   //   id: 2,

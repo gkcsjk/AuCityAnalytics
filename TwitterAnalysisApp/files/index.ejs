@@ -26,13 +26,13 @@
                 </div>
             </div>
 
-            <div id="content">
+            <!-- <div id="content">
                 <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#map2">
                     Emotion
                 </button>
-            </div>
+            </div> -->
             
-            <div id="map2" class="collapse in">
+            <!-- <div id="map2" class="collapse in">
                 <div align="center" class="span4">
                     <div id="map-canvas1"></div>
                     <br/>
@@ -49,43 +49,90 @@
                     <div id="map-canvas2"></div>
                     <br/>
                 </div>
-            </div>
+            </div> -->
 
-            <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+            <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script> -->
+            <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
             <script src="/Script/List.js"></script>
             <script src="/Script/Mapster.js"></script>
-            <script src="/Script/map-options.js"></script>
+            <script src="/Script/map-options.js"></script> -->
             <script>
-                var heatmapData = [];
-                <% tiny_twitter.forEach(function(tweets){ %>
-                    var coor = [<%= tweets.value.the_coordinate %>];
-                    heatmapData.push(coor);
+                var mel_coordinate = [];
+                <% emlbourne_ans.forEach(function(tweets){ %>
+                    var coor = [<%= tweets.value.coordinates.coordinates %>, <%= tweets.value.lable %>];
+                    // console.log(coor);
+                    mel_coordinate.push(coor);
                 <% }); %>
+                
             </script>
     
             <script>
-                (function(window, google, mapster) {
-                  var options = mapster.MAP_OPTIONS,
-                  element = document.getElementById('map-canvas'),
-                  map = mapster.create(element, options);
+                // (function(window, google, mapster) {
+                //   var options = mapster.MAP_OPTIONS,
+                //   element = document.getElementById('map-canvas');
+                //   map = mapster.create(element, options);
 
-                  element1 = document.getElementById('map-canvas1'),
-                  map1 = mapster.create(element1, options);
+                //   // element1 = document.getElementById('map-canvas1'),
+                //   // map1 = mapster.create(element1, options);
 
-                  element2 = document.getElementById('map-canvas2'),
-                  map2 = mapster.create(element2, options);
+                //   // element2 = document.getElementById('map-canvas2'),
+                //   // map2 = mapster.create(element2, options);
                   
-                  var coor = heatmapData;
-                  console.log(coor);
-                  coor.forEach(function(coordinate){
-                    map.addMarker({
-                      lat: Number(coordinate[1]),
-                      lng: Number(coordinate[0]),
-                      draggable: false,
-                    })
-                  });  
-                }(window, google, window.Mapster || (window.Mapster = {})));
+                //   // var coor = heatmapData;
+                //   // console.log(coor);
+                //   mel_coordinate.forEach(function(coordinate){
+                //     map.addMarker({
+                //       lat: Number(coordinate[1]),
+                //       lng: Number(coordinate[0]),
+                //       draggable: false,
+                //     });
+                
+                //   });  
+                // }(window, google, window.Mapster || (window.Mapster = {})));
+                  var map, heatmap;
+
+                  function initMap() {
+                    map = new google.maps.Map(document.getElementById('map-canvas'), {
+                      zoom: 9,
+                      center: {lat: -37.96, lng: 145},
+                      mapTypeId: 'hybrid'
+                    });
+
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                      data: getPoints(),
+                      map: map, 
+                      radius: 50
+                    });
+                  }
+
+                  function getPoints() {
+
+                        var heatmapData = [];
+                        mel_coordinate.forEach(function(element){
+                            
+                            var weight;
+                            if (element[2] == 1) {
+                                weight = 300000;
+                            } else if (element[2] == -1){
+                                weight = 1;
+                            } else {
+                                weight = 1;
+                            }
+
+                            var coor_object = {
+                                "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                "weight": weight
+                            };
+                            heatmapData.push(coor_object);
+                        });
+                        console.log(heatmapData);
+                        return heatmapData;
+                }
             </script>
+            <!-- <script async defer
+                src="https://maps.googleapis.com/maps/api/js?&libraries=visualization&callback=initMap">
+            </script> -->
+            <script async defer string APIkey = "AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0"; src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0&libraries=visualization&callback=initMap"></script>
         </div>
     </div>
 </div>
