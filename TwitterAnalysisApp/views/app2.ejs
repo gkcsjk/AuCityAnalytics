@@ -6,13 +6,28 @@
     <link rel="stylesheet" href="/cssFiles/style.css">
     <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body> 
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">AuCityAnalytics</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/app1">App 1</a></li>
+              <li class="active"><a href="/app2">App 2</a></li>
+              <li><a href="/app3">App 3</a></li>
+            </ul>
+          </div>
+        </nav>
         <div class = "container-border">
             <div class = "row">
                 <div align = "center" class="col-md-6">
                     <div id="floating-panel">
-                        <br>
+                        <br><br><br><br>
                         <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
@@ -25,7 +40,7 @@
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-dark" onclick="clearData()">Clear</a>
                         <br>
-                        <div id="map-canvas"></div>
+                        <div id="map-canvas2"></div>
                     </div>
                 </div>
                 <div align = "left" class="col-md-4">
@@ -33,7 +48,7 @@
                     <img src="/Img/Aurin_chart.png" class="img img-responsive">
                 </div>
                 <div class="col-md-2">
-                    <br><br><br><br><br>
+                    <br><br><br><br><br><br>
                     <img src="/Img/Aurin_country.png" class="img1 img-responsive">
                 </div>
                 
@@ -52,7 +67,7 @@
               var map, heatmap;
 
               function initMap() {
-                map = new google.maps.Map(document.getElementById('map-canvas'), {
+                map = new google.maps.Map(document.getElementById('map-canvas2'), {
                   zoom: 9,
                   minZoom: 9,
                   center: {lat: -37.96, lng: 145},

@@ -1,158 +1,305 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Welcome!</title>
-    <link rel="stylesheet" href="/cssFiles/style.css">
-    <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body> 
-        <div class = "container">
-            <div class = "row">
-                <div align = "right" class="span12">
-                    <div id="floating-panel">
-                        <br><br><br>
-                        <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-success" onclick="getItalian()">Italian</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-danger" onclick="getChinese()">Chinese</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-primary" onclick="getJapanese()">Japnanese</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-dark" onclick="clearData()">Clear</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <br><br>
-                        <div id="map-canvas"></div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <br/>
-        <script>
-            var mel_coordinate = [];
-            <% emlbourne_ans.forEach(function(tweets){ %>
-                var coor = [<%= tweets.value.coordinates.coordinates %>, "<%= tweets.value.lang %>"];
-                mel_coordinate.push(coor);
-            <% }); %>
-        </script>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome!</title>
+        <link rel="stylesheet" href="/cssFiles/style.css">
+        <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    </head>
+    <body>
     
-        <script>
-              var map, heatmap;
-
-              function initMap() {
-                map = new google.maps.Map(document.getElementById('map-canvas'), {
-                  zoom: 9,
-                  center: {lat: -37.96, lng: 145},
-                  mapTypeId: 'hybrid'
-                });
-
-                heatmap = new google.maps.visualization.HeatmapLayer({
-                  //data: null,
-                  map: map, 
-                  radius: 30
-                });
-              }
-                  
-              function clearData(){
-                heatmapData = [];
-                heatmap.setData(heatmapData);
-              }
-
-
-              function getArabic() {
-
-                    var heatmapData = [];
-                    mel_coordinate.forEach(function(element){
-                        if (element[2] === "ar"){
-                            var weight = 1; 
-                            var coor_object = {
-                                "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
-                                "weight": weight
-                            };
-                            heatmapData.push(coor_object);
-                        }                          
-                    });                        
-                    heatmap.setData(heatmapData);
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">AuCityAnalytics</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li class="active"><a href="/app1">App 1</a></li>
+              <li><a href="/app2">App 2</a></li>
+              <li><a href="/app3">App 3</a></li>
+            </ul>
+          </div>
+        </nav>
+        
+                <br><br><br><br>
+        
+                <div align = "center" class = "col-md-6">
+                    <div id="map" class = "map-canvas1"></div>
+                </div>
+                <div class = "col-md-4">
+                    <div id="infoLine" class = "infoLine"></div>
+                </div>
+                <div class = "col-md-4">
+                    <div id="barChart" class = "barChart"></div>
+                </div>
+            
+    
+    
+    <script src="/cssFiles/echarts.min.js"></script>
+    <script>
+    
+        function isVisible(){
+            document.getElementById("infoLine").style.display = 'none';
+            document.getElementById("barChart").style.display = 'block';
+        }
+           
+        function initMap() {
+        
+        var AdelaideCoord = {lat: -34.9326, lng: 138.6001};
+        var SydneyCoord = {lat: -33.8274, lng: 151.0569};
+        var BrisbaneCoord = {lat: -27.4379, lng: 153.0625};
+        var PerthCoord = {lat: -31.9326, lng: 115.8633};
+        var MelbourneCoord = {lat: -37.9154, lng: 145.0692};
+		var CanberraCoord = {lat:-35.2940,lng: 149.1153};
+		
+        var mainCity = [MelbourneCoord,AdelaideCoord,BrisbaneCoord,SydneyCoord,PerthCoord,CanberraCoord];     
+       		
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            minZoom: 4,
+            center: {lat: -27.5480766, lng: 133.5},          
+        });
+        
+        
+        var emotions = [];
+        <% a.forEach(function(db){ %>
+            var cityEmotions = new Object();
+            <% db.forEach(function(time) { %>
+                var emotion = <%=time.key[0]%>;
+                var timeRange = <%=time.key[1]%>;
+                var count = <%=time.value%>;
+                if (emotion == 1){
+                    var key = "p"+timeRange.toString();
+                } 
+                else if (emotion == -1){
+                    var key = "n"+timeRange.toString();
                 }
+                else{
+                    var key = "x"+timeRange.toString();
+                }
+                cityEmotions[key] = count
+                
+            <% }) %>
+            emotions.push(cityEmotions)
+        <% }); %>
 
+        var markers = []
+        var barDiv = document.getElementById('barChart');
+        var emoTotals = []
+        
+        for (var dbIndex = 0; dbIndex <= 5; dbIndex ++){            
+            markers.push(new google.maps.Marker({
+                position: mainCity[dbIndex],
+                map:map
+            }));
+            
+            var pos_total = 0;
+            var neg_total = 0;
+            
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                pos_total += emotions[dbIndex][pos_key];
+                neg_total += emotions[dbIndex][neg_key];
+            }
+            var emoTotal = 100*(pos_total/(pos_total+neg_total));
+            console.log(emoTotal)
+            emoTotals.push(emoTotal);
+        }
+        initBarchart(emoTotals);
+        
+        markers[0].addListener('click', function() {
+            barDiv.style.display = 'none';
+            
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                pos_total += emotions[0][pos_key];
+                neg_total += emotions[0][neg_key];
+                
+                var ans = 100*(emotions[0][pos_key]/(emotions[0][neg_key]+emotions[0][pos_key]));
+                percentageVStime.push(ans);
+            }
+            var emoTotal = 100*(pos_total/(pos_total+neg_total));
+            initCityChart(percentageVStime);
+            
+        });   
+        
+        markers[1].addListener('click', function() {
+            barDiv.style.display = 'none';
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                var ans = 100*(emotions[1][pos_key]/(emotions[1][neg_key]+emotions[1][pos_key]));
+                percentageVStime.push(ans);
+            }
+            initCityChart(percentageVStime);
+            
+        }); 
+    
+        markers[2].addListener('click', function() {
+            barDiv.style.display = 'none';
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                var ans = 100*(emotions[2][pos_key]/(emotions[2][neg_key]+emotions[2][pos_key]));
+                percentageVStime.push(ans);
+            }
+            initCityChart(percentageVStime);
+            
+        });   
+        markers[3].addListener('click', function() {
+            barDiv.style.display = 'none';
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                var ans = 100*(emotions[3][pos_key]/(emotions[3][neg_key]+emotions[3][pos_key]));
+                percentageVStime.push(ans);
+            }
+            initCityChart(percentageVStime);
+            
+        });   
+        markers[4].addListener('click', function() {
+            barDiv.style.display = 'none';
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                var ans = 100*(emotions[4][pos_key]/(emotions[4][neg_key]+emotions[4][pos_key]));
+                percentageVStime.push(ans);
+            }
+            initCityChart(percentageVStime);
+            
+        });   
+        markers[5].addListener('click', function() {
+            barDiv.style.display = 'none';
+            var percentageVStime = [];
+            for (var i=0; i<24; i=i+2){
+                var pos_key = "p"+i.toString();
+                var neg_key = "n"+i.toString();
+                var ans = 100*(emotions[5][pos_key]/(emotions[5][neg_key]+emotions[5][pos_key]));
+                percentageVStime.push(ans);
+            }
+            initCityChart(percentageVStime);
+            
+        });   
 
-                function getSpanish() {
+       			  
+    }
+    </script>
+  <!-- =========================================================	 -->
+  
 
-                        var heatmapData = [];
-                        mel_coordinate.forEach(function(element){          
-                            if (element[2] === "es"){
-                                var weight = 1; 
-                                var coor_object = {
-                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
-                                    "weight": weight
-                                };
-                                heatmapData.push(coor_object);
-                            }
-                        });
-                        heatmap.setData(heatmapData);
-                        //return heatmapData;
-                    }
+    <script type="text/javascript">
+  //===========================//
+ 
+  //===========================//
+function initCityChart(percentageVStime){ 
+	
+	var lineDiv = document.getElementById('infoLine');
+    lineDiv.style.display = "block";
+	var lineChart = echarts.init(lineDiv);
+    
 
+	lineOption = {
+    tooltip: {
+        trigger: 'axis'
+    },
+    toolbox: {
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data:['Percentage2']
+    },
+    xAxis: {       
+		//type: 'category',
+		name: 'Time(24-hour)',
+		data: ['1-2','2-4','4-6','6-8','8-10','10-12','12-14','14-16','16-18','18-20','20-22','22-24']	
+    },
+    yAxis: {       
+            type: 'value',
+            name: 'Percentage',
+            min: 60,
+            max: 100,
+            interval: 5,
+            axisLabel: {
+                formatter: '{value} %'
+            }       
+    },
+    series: [
+        {
+            name:'Percentage2',
+            type:'line',
+            data:percentageVStime  <!--to be assigned -->
+        }
+    ]
+};
+	lineChart.setOption(lineOption);
+}
+</script>
 
-                  function getItalian() {
-                        var heatmapData = [];
-                        mel_coordinate.forEach(function(element){
-                            if (element[2] === "it"){
-                                var weight = 1; 
-                                var coor_object = {
-                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
-                                    "weight": weight
-                                };
-                                heatmapData.push(coor_object);
-                            }
-                        });
-                        heatmap.setData(heatmapData);
-                        //return heatmapData;
-                    }
+   
+<script type="text/javascript">
 
-                  // function toggleHeatmap() {
-                  //     heatmap.setMap(heatmap.getMap() ? null : map);
-                  // }
-                  
-                  function getChinese() {
-                        var heatmapData = [];
-                        mel_coordinate.forEach(function(element){
-                            if (element[2] === "zh"){
-                                var weight = 1; 
-                                var coor_object = {
-                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
-                                    "weight": weight
-                                };
-                                heatmapData.push(coor_object);
-                            }
-                        });
-                        heatmap.setData(heatmapData);
-                        //return heatmapData;
-                    }
+function initBarchart(emoTotals){ 
 
-                    function getJapanese() {
+    var barDiv = document.getElementById('barChart');
+    var barChart = echarts.init(barDiv);
+    
+    
+    
 
-                        var heatmapData = [];
-                        mel_coordinate.forEach(function(element){
-                            if (element[2] === "ja"){
-                                var weight = 1; 
-                                var coor_object = {
-                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
-                                    "weight": weight
-                                };
-                                heatmapData.push(coor_object);
-                            }
-                        });
-                        heatmap.setData(heatmapData);
-                        //return heatmapData;
-                    }
-            </script>
-            <script async defer string APIkey = "AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0"; src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0&libraries=visualization&callback=initMap"></script>
-</body>
+    var barOption = {
+        title: {
+            text: 'Emotion analysis'
+        },
+        legend: {
+            data: ['Happiness index']
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            data: ['Melbourne','Adelaide','Brisbane','Sydney','Perth','Canberra']   
+        },
+        yAxis: {
+          type: 'value',
+            name: 'Percentage',
+            min: 65,
+            max: 80,
+            interval: 5,
+            axisLabel: {formatter: '{value} %'}
+        },
+        series: [{
+            name: 'Happiness index',
+            type: 'bar',
+            data: emoTotals
+        }]
+    };
+    barChart.setOption(barOption);
+}
+</script>
+  
+ </script>
+  <!-- ========================================================= -->
+	
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGZ10PwxxqzWXjUVgZrbUMA_f1PmNWFiw&callback=initMap">
+</script>
+  </body>
 </html>
