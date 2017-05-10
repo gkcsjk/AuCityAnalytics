@@ -16,7 +16,7 @@ const couch = new NodeCouchDb({
 // const viewUrl = '/_design/coordinates_all/_view/all_coordinates';
 
 const dbName = 'emlbourne_ans';
-const viewUrl = '_design/melbourme_view/_view/five_lang';
+const viewUrl = '_design/melbourme_view/_view/lang_withcoor';
 
 couch.listDatabases().then(function(dbs){
 	console.log(dbs);
@@ -24,7 +24,7 @@ couch.listDatabases().then(function(dbs){
 
 app.use('/cssFiles', express.static(__dirname + '/assets'));
 app.use('/BStrap', express.static(__dirname + '/bootstrap'));
-app.use('/Script', express.static(__dirname + '/script'));
+app.use('/Img', express.static(__dirname + '/img'));
 
 // app.get('/', function(req, resp) {
 // 	resp.sendFile('index.ejs', {root: path.join(__dirname, './Views')});
@@ -39,10 +39,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', function(req, res){
+	res.sendFile('home.html', {root: path.join(__dirname, './files')});
+});
+
+app.get('/app1', function(req, res){
 	couch.get(dbName, viewUrl).then(
 		function(data, headers, status){
 			// console.log(data.data.rows);
-			res.render('index',{
+			res.render('app1',{
 				emlbourne_ans: data.data.rows
 			});
 		},
@@ -50,6 +54,34 @@ app.get('/', function(req, res){
 			res.send(err);
 		});
 });
+
+app.get('/app2', function(req, res){
+	couch.get(dbName, viewUrl).then(
+		function(data, headers, status){
+			// console.log(data.data.rows);
+			res.render('app1',{
+				emlbourne_ans: data.data.rows
+			});
+		},
+		function(err){
+			res.send(err);
+		});
+});
+
+app.get('/app3', function(req, res){
+	couch.get(dbName, viewUrl).then(
+		function(data, headers, status){
+			// console.log(data.data.rows);
+			res.render('app1',{
+				emlbourne_ans: data.data.rows
+			});
+		},
+		function(err){
+			res.send(err);
+		});
+});
+
+
 
 app.listen(3000, function(){
 	console.log('Sever Started On Port 3000');

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="/cssFiles/style.css">
+    <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body> 
+        <div class = "container">
+            <div class = "row">
+                <div align = "right" class="span12">
+                    <div id="floating-panel">
+                        <br><br><br>
+                        <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-success" onclick="getItalian()">Italian</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger" onclick="getChinese()">Chinese</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-primary" onclick="getJapanese()">Japnanese</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-dark" onclick="clearData()">Clear</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <br><br>
+                        <div id="map-canvas"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br/>
+        <script>
+            var mel_coordinate = [];
+            <% emlbourne_ans.forEach(function(tweets){ %>
+                var coor = [<%= tweets.value.coordinates.coordinates %>, "<%= tweets.value.lang %>"];
+                mel_coordinate.push(coor);
+            <% }); %>
+        </script>
+    
+        <script>
+              var map, heatmap;
+
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('map-canvas'), {
+                  zoom: 9,
+                  center: {lat: -37.96, lng: 145},
+                  mapTypeId: 'hybrid'
+                });
+
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                  //data: null,
+                  map: map, 
+                  radius: 30
+                });
+              }
+                  
+              function clearData(){
+                heatmapData = [];
+                heatmap.setData(heatmapData);
+              }
+
+
+              function getArabic() {
+
+                    var heatmapData = [];
+                    mel_coordinate.forEach(function(element){
+                        if (element[2] === "ar"){
+                            var weight = 1; 
+                            var coor_object = {
+                                "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                "weight": weight
+                            };
+                            heatmapData.push(coor_object);
+                        }                          
+                    });                        
+                    heatmap.setData(heatmapData);
+                }
+
+
+                function getSpanish() {
+
+                        var heatmapData = [];
+                        mel_coordinate.forEach(function(element){          
+                            if (element[2] === "es"){
+                                var weight = 1; 
+                                var coor_object = {
+                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                    "weight": weight
+                                };
+                                heatmapData.push(coor_object);
+                            }
+                        });
+                        heatmap.setData(heatmapData);
+                        //return heatmapData;
+                    }
+
+
+                  function getItalian() {
+                        var heatmapData = [];
+                        mel_coordinate.forEach(function(element){
+                            if (element[2] === "it"){
+                                var weight = 1; 
+                                var coor_object = {
+                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                    "weight": weight
+                                };
+                                heatmapData.push(coor_object);
+                            }
+                        });
+                        heatmap.setData(heatmapData);
+                        //return heatmapData;
+                    }
+
+                  // function toggleHeatmap() {
+                  //     heatmap.setMap(heatmap.getMap() ? null : map);
+                  // }
+                  
+                  function getChinese() {
+                        var heatmapData = [];
+                        mel_coordinate.forEach(function(element){
+                            if (element[2] === "zh"){
+                                var weight = 1; 
+                                var coor_object = {
+                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                    "weight": weight
+                                };
+                                heatmapData.push(coor_object);
+                            }
+                        });
+                        heatmap.setData(heatmapData);
+                        //return heatmapData;
+                    }
+
+                    function getJapanese() {
+
+                        var heatmapData = [];
+                        mel_coordinate.forEach(function(element){
+                            if (element[2] === "ja"){
+                                var weight = 1; 
+                                var coor_object = {
+                                    "location": new google.maps.LatLng(Number(element[1]), Number(element[0])),
+                                    "weight": weight
+                                };
+                                heatmapData.push(coor_object);
+                            }
+                        });
+                        heatmap.setData(heatmapData);
+                        //return heatmapData;
+                    }
+            </script>
+            <script async defer string APIkey = "AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0"; src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0&libraries=visualization&callback=initMap"></script>
+</body>
+</html>

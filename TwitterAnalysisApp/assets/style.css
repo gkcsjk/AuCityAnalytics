@@ -2,6 +2,9 @@ html {
   height: 100%;
 }
 body{
+  background: url(/Img/bg.jpg) fixed center;
+  background-size: cover;
+  background-color: rgba(0,0,0,0.5);
   height: 100%;
   padding: 0;
   margin: 0;

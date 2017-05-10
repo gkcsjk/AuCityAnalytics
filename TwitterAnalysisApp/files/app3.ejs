@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="/cssFiles/style.css">
+    <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body> 
+        <div class = "container">
+            <div class = "row">
+                <div align = "right" class="span12">
+                    <div id="floating-panel">
+                        <br><br><br>
+                        <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-success" onclick="getItalian()">Italian</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger" onclick="getChinese()">Chinese</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-primary" onclick="getJapanese()">Japnanese</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-dark" onclick="clearData()">Clear</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <br><br>
+                        <div id="map-canvas"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br/>
+        <script>
+              var map, heatmap;
+
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('map-canvas'), {
+                  zoom: 9,
+                  center: {lat: -37.96, lng: 145},
+                  mapTypeId: 'hybrid'
+                });
+
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                  //data: null,
+                  map: map, 
+                  radius: 30
+                });
+              }
+</body>
+</html>
