@@ -1,0 +1,40 @@
+- name: create file system to new volume
+  shell: sudo mkfs.ext4 /dev/vdc
+- name: create new folder
+  shell: sudo mkdir /couchdb
+- name: mount volume
+  shell: sudo mount /dev/vdc /couchdb -t auto
+- name: give the user 'ubuntu' permission
+  shell: sudo chown ubuntu /couchdb
+- name: install the couchdb
+  script: couchDBInstall.sh 
+- name: configure local.ini file
+  script: clusterConfig.py
+- name: configure vm.args file
+  script: clusterConfig2.py {{ansible_all_ipv4_addresses}}
+- name: Copy sys.config file to client (configure sys.config)
+  copy: src=sys.config dest=/usr/local/couchdb/releases/2.0.0/sys.config
+            owner=root group=root mode=777
+- name: Copy couchdb.service file to client (create daemon service for couchDB)
+  copy: src=couchdb.service dest=/etc/systemd/system/
+            owner=couchdb group=root mode=777
+- name: Add 'couchdb' user to sudo group
+  shell: sudo usermod -a -G sudo couchdb
+- name: start the couchdb service
+  script: startCouchDB.sh
+- include: addNode2DB.yml
+  vars:
+    myAdmin: ccc
+    myPasswd: cloud
+    nodeIP:  #change here to add your nodes
+      - 130.56.248.233
+      - 130.56.252.134
+- name: install tweepy
+  command: yes | sudo apt-get install python-tweepy
+- name: Install necessary packages for analysis program
+  script: anaPackInstall.sh
+- include: nodeJS.yml
+  when: inventory_hostname in groups['webServer']
+
+
+

@@ -1,0 +1,6 @@
+- name: run streaming.py to harvest
+  command: python streaming.py -c "{{city}}" -k "{{keyOwner}}" "{{arg}}"
+  when: "{{mode}}" == "streaming"
+- name: run rest.py to harvest
+  command: python rest.py -c "{{city}}" -k "{{keyOwner}}" "{{arg}}"
+  when: "{{mode}}" == "rest"

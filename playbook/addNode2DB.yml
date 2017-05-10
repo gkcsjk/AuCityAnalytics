@@ -1,0 +1,6 @@
+  - name: Enable cluster
+    command: curl -X POST -H "Content-Type:application/json" http://"{{myAdmin}}":"{{myPasswd}}"@127.0.0.1:5984/_cluster_setup -d '{"action":"enable_cluster", "bind_address":"0.0.0.0", "username":"{{myAdmin}}", "password":"{{myPasswd}}", "port":"5984", "remote_node":"{{item}}", "remote_current_user":"{{myAdmin}}", "remote_current_password":"{{myPasswd}}"}'
+    with_items: "{{nodeIP}}"
+  - name: Add node in cluster
+    command: curl -X POST -H "Content-Type:application/json" http://"{{myAdmin}}":"{{myPasswd}}"@127.0.0.1:5984/_cluster_setup -d '{"action":"add_node", "host":"{{item}}", "port":"5984", "username":"{{myAdmin}}", "password":"{{myPasswd}}"}'
+    with_items: "{{nodeIP}}"

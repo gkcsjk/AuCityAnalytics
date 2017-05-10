@@ -1,0 +1,68 @@
+html {
+  height: 100%;
+}
+body{
+  background: url(/Img/bg.jpg) fixed center;
+  background-size: cover;
+  background-color: rgba(0,0,0,0.5);
+  height: 100%;
+  width: 100%;
+  border-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
+.container-border{
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 0;
+  margin-left: 0;
+  height: 100%
+}
+#map {
+    height: 550px;
+    width: 600px;
+    left:0;
+}
+#barChart{
+    position:fixed;
+    height: 600px;
+    width: 600px;
+    display:block;
+}
+#infoLine{
+    position:fixed;
+    height: 600px;
+    width: 600px;
+    display:block;
+}	  
+#map-canvas2 {
+  width: 550px;
+  height: 500px;
+  background-color: grey;
+}
+#map-canvas3 {
+  width: 600px;
+  height: 600px;
+  background-color: grey;
+}
+#content {
+  padding-left: 150px;
+  margin: 20px;
+}
+.barChart{
+    width: 30%;
+    height: 100%;
+}
+.infoLine{
+    width: 30%;
+    height: 100%;
+}
+.img {
+  width: 500px;
+  height: 500px;
+}
+.img1 {
+  width: 100px;
+  height: 100px;
+}

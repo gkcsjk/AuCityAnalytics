@@ -1,0 +1,10 @@
+- name: Make new foloder ~/analysis
+  file: dest=/home/ubuntu/analysis
+            owner=ubuntu group=ubuntu mode=777 state=directory
+- name: Copy folder to client
+  copy: src=tweetsProcess dest=/home/ubuntu/analysis
+            owner=ubuntu group=ubuntu mode=777
+- name: Add emotion label to tweets
+  command: python /home/ubuntu/analysis/tweetsProcess/updateDB.py -c "{{city}}"
+  async: 2592000
+  poll: 60

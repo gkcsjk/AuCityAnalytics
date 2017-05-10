@@ -1,0 +1,14 @@
+---
+- hosts: "{{myVM}}"
+  remote_user: ubuntu
+  sudo: yes
+  tasks:
+  - name: install node.Js
+    script: /home/ryshjx/playbook/roles/deployment/files/webDeploy1.sh
+  - name: pass the App folder to the instance
+   copy: src=/home/ryshjx/playbook/TwitterAnalysisApp 
+            dest=/home/ubuntu/ owner=root group=root mode=777
+  - name: install express.js in 'TwitterAnalysisApp'
+    command: npm install express --save
+    args:
+      chdir: /home/ubuntu/TwitterAnalysisApp

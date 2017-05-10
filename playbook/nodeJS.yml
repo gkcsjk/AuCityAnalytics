@@ -1,0 +1,9 @@
+- name: install node.Js and create a folder 'myapp'
+  script: webDeploy1.sh
+- name: pass the App folder to the instance
+  copy: src=TwitterAnalysisApp
+            dest=/home/ubuntu/ owner=root group=root mode=777
+- name: install express.js in 'TwitterAnalysisApp'
+  command: npm install express --save
+  args:
+    chdir: /home/ubuntu/TwitterAnalysisApp

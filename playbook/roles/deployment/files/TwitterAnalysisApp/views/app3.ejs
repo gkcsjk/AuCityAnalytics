@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="/cssFiles/style.css">
+    <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/cssFiles/echarts.min.js"></script>
+</head>
+<body> 
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">AuCityAnalytics</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/app1">App 1</a></li>
+              <li><a href="/app2">App 2</a></li>
+              <li class="active"><a href="/app3">App 3</a></li>
+            </ul>
+          </div>
+        </nav>
+        
+        
+            <div class = "row">
+                <br><br><br><br>
+                <div align = "center" class="col-md-6">
+                    <div id="map-canvas3"></div>
+                </div>
+                <div class = "col-md-6">
+                    <div id="airportPie" style="width:100%; height:300px;" > 
+                        <div id="VirginAuPie" style="width:50%; height:100%;float:left;" > </div>  
+                        <div id="TigerairPie" style="width:50%; height:100%;float:left;" > </div>  
+                    </div> 
+                    
+                    <div id="airportPie2" style="width:100%; height:300px;" > 
+                        <div id="QuantasPie" style="width:50%; height:100%;float:left;" > </div>  
+                        <div id="JetstarPie" style="width:50%; height:100%;float:left;" > </div>  
+                    </div>
+                </div>
+                
+                
+            </div>
+        
+        <br>
+        <script>
+              var map;
+
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('map-canvas3'), {
+                  zoom: 4,
+                  minZoom: 4,
+                  center: {lat: -27.5480766, lng: 133.5},
+                  mapTypeId: 'roadmap'
+                });
+                var LatLng = [{lat: -37.675143, lng: 144.84782},{lat: -37.67039492, lng: 144.84850288},{lat: -37.66731786, lng: 144.8498251},{lat: -37.66823672, lng: 144.85052336},{lat: -37.66880485, lng: 144.85071553},{lat: -37.66843061, lng: 144.84624222},{lat: -37.66846655, lng: 144.85064035},{lat: -37.6710844, lng: 144.84753167},{lat: -37.6713, lng: 144.847},{lat: -37.67120198, lng: 144.84838486},{lat: -34.9333, lng: 138.6},{lat: -34.93924637, lng: 138.53691101},{lat: -34.93918266, lng: 138.5371273},{lat: -34.93860981, lng: 138.5376893},{lat: -34.93811082, lng: 138.53818084},{lat: -27.38975406, lng: 153.11684132},{lat: -27.38322039, lng: 153.1205578},{lat: -27.40360004, lng: 153.12526714},{lat: -27.3068448, lng: 152.9901005},{lat: -27.38516, lng: 153.11913},{lat: -27.38654458, lng: 153.11918106},{lat: -27.38541366, lng: 153.12034025},{lat: -28.1668135, lng: 153.51304436},{lat: -27.38975406, lng: 153.11684132},{lat: -27.38541366, lng: 153.12034025},{lat: -35.30785895, lng: 149.19016521},{lat: -35.307492, lng: 149.190707},{lat: -35.3081, lng: 149.124},{lat: -35.307353, lng: 149.190413},{lat: -31.93325547, lng: 115.96100128},{lat: -31.93338358, lng: 115.96094938},{lat: -31.933574, lng: 115.960969},{lat: -31.93325547, lng: 115.96100128},{lat: -31.948932, lng: 115.8750554},{lat: -31.93324, lng: 115.960833},{lat: -33.93607417, lng: 151.17067504},{lat: -33.93607417, lng: 151.17067504},{lat: -33.93346262, lng: 151.17886101},{lat: -33.93600807, lng: 151.16761737},{lat: -33.93607417, lng: 151.17067504},{lat: -33.934135, lng: 151.178967},{lat: -33.93498328, lng: 151.17759221},{lat: -33.935004, lng: 151.17962801}];
+                  // console.log(LatLng);
+                  var markers = [];
+                  for(i = 0; i < LatLng.length; i++){
+                    var marker = new google.maps.Marker({
+                        position: LatLng[i],
+                        map: map
+                      });
+                    markers.push(marker);
+                  };
+                  var markerCluster = new MarkerClusterer(map, markers,
+                        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+              }
+        </script>
+        
+        <script type="text/javascript">
+  
+            var VirginAuPie = echarts.init(document.getElementById('VirginAuPie'));
+            var TigerairPie = echarts.init(document.getElementById('TigerairPie'));
+            var QuantasPie = echarts.init(document.getElementById('QuantasPie'));
+            var JetstarPie = echarts.init(document.getElementById('JetstarPie'));
+                
+              //===========================//
+            
+            var jneg = <%= airlineDB["jetstar_neg"]%>;
+            var jneu = <%= airlineDB["jetstar_neu"]%>;
+            var jpos = <%= airlineDB["jetstar_pos"]%>;
+            
+            var qneg = <%= airlineDB["qantas_neg"]%>;
+            var qneu = <%= airlineDB["qantas_neu"]%>;
+            var qpos = <%= airlineDB["qantas_pos"]%>;
+            
+            var tneg = <%= airlineDB["tigerair_neg"]%>;
+            var tneu = <%= airlineDB["tigerair_neu"]%>;
+            var tpos = <%= airlineDB["tigerair_pos"]%>;
+            
+            var vneg = <%= airlineDB["virgin_neg"]%>;
+            var vneu = <%= airlineDB["virgin_neu"]%>;
+            var vpos = <%= airlineDB["virgin_pos"]%>;
+              
+            var pieLegendName = ['Negative','Neutral','Positive'];
+
+            var VirginAuData = [{value:vneg, name:pieLegendName[0]},
+                                {value:vneu, name:pieLegendName[1]},
+                                {value:vpos, name:pieLegendName[2]}];
+            
+            var TigerairData = [{value:tneg, name:pieLegendName[0]},
+                                {value:tneu, name:pieLegendName[1]},
+                                {value:tpos, name:pieLegendName[2]}];
+                                
+            var QuantasData = [{value:qneg, name:pieLegendName[0]},
+                                {value:qneu, name:pieLegendName[1]},
+                                {value:qpos, name:pieLegendName[2]}];
+                                
+            var JetstarData = [{value:jneg, name:pieLegendName[0]},
+                                {value:jneu, name:pieLegendName[1]},
+                                {value:jpos, name:pieLegendName[2]}];
+            
+            
+            //===========================//
+            var radius = '50%';
+            var center = ['50%', '60%'];
+            var legendToBottom = '10%';
+            var color = ['#2f4554', '#61a0a8','#c23531'];
+
+            var VirginAuOption = {};
+            var TigerairOption = {};
+            var QuantasOption = {};
+            var JetstarOption = {};
+                
+            VirginAuOption = {
+                title : {
+                    text: 'Virgin Australia',
+                    x:'center'
+                        },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: legendToBottom,
+                    data: pieLegendName
+                },
+                series : [
+                    {	
+                        name: 'Virgin Australia',
+                        type: 'pie',
+                        radius : radius,
+                        <!-- center: ['50%', '60%'], -->
+                        data: VirginAuData,
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                show: true,
+                                formatter: '{c} ({d}%)'
+                                },
+                            labelLine :{show:true}
+                            }
+                        },					
+                    },
+                ],
+                color:color,
+            };
+
+            TigerairOption = {
+                title : {
+                    text: 'Tigerair',
+                    x:'center'
+                        },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: legendToBottom,
+                    data: pieLegendName
+                },
+                series : [
+                    {	
+                        name: 'Tigerair',
+                        type: 'pie',
+                        radius : radius,
+                        <!-- center: ['50%', '60%'], -->
+                        data: TigerairData,
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                show: true,
+                                formatter: '{c} ({d}%)'
+                                },
+                            labelLine :{show:true}
+                            }
+                        },					
+                    },
+                ],
+                color:color,
+            };
+            
+            QuantasOption = {
+                title : {
+                    text: 'Qantas',
+                    x:'center'
+                        },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: legendToBottom,
+                    data: pieLegendName
+                },
+                series : [
+                    {	
+                        name: 'Qantas',
+                        type: 'pie',
+                        radius : radius,
+                        <!-- center: ['50%', '60%'], -->
+                        data: QuantasData,
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                show: true,
+                                formatter: '{c} ({d}%)'
+                                },
+                            labelLine :{show:true}
+                            }
+                        },					
+                    },
+                ],
+                color:color,
+                
+            };
+            
+            JetstarOption = {
+                title : {
+                    text: 'Jetstar',
+                    x:'center'
+                        },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: legendToBottom,
+                    data: pieLegendName
+                },
+                series : [
+                    {	
+                        name: 'Jetstar',
+                        type: 'pie',
+                        radius : radius,
+                        <!-- center: ['50%', '60%'], -->
+                        data: JetstarData,
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                show: true,
+                                formatter: '{c} ({d}%)'
+                                },
+                            labelLine :{show:true}
+                            }
+                        },					
+                    },
+                ],
+                color:color,
+            };
+            
+            VirginAuPie.setOption(VirginAuOption);
+            TigerairPie.setOption(TigerairOption);
+            QuantasPie.setOption(QuantasOption);
+            JetstarPie.setOption(JetstarOption);
+        </script>
+        
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <script async defer string APIkey = "AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0"; src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0&callback=initMap"></script>
+</body>
+</html>
