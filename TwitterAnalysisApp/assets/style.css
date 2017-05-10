@@ -6,7 +6,9 @@ body{
   background-size: cover;
   background-color: rgba(0,0,0,0.5);
   height: 100%;
-  padding: 0;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
   margin: 0;
 }
 #map-canvas {
@@ -16,7 +18,7 @@ body{
 }
 #map-canvas1 {
   width: 600px;
-  height: 400px;
+  height: 500px;
   background-color: grey;
 }
 #map-canvas2 {
@@ -27,4 +29,12 @@ body{
 #content {
   padding-left: 150px;
   margin: 20px;
+}
+.img {
+  width: 500px;
+  height: 500px;
+}
+.img1 {
+  width: 100px;
+  height: 100px;
 }

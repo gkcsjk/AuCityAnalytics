@@ -6,49 +6,44 @@
     <link rel="stylesheet" href="/cssFiles/style.css">
     <link rel="stylesheet" href="/cssFiles/stylish-portfolio.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body> 
         <div class = "container">
             <div class = "row">
-                <div align = "right" class="span12">
-                    <div id="floating-panel">
-                        <br><br><br>
-                        <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-success" onclick="getItalian()">Italian</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-danger" onclick="getChinese()">Chinese</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-primary" onclick="getJapanese()">Japnanese</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-dark" onclick="clearData()">Clear</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <br><br>
-                        <div id="map-canvas"></div>
-                        <br>
-                    </div>
+                <br><br><br>
+                <div align = "center" class="span12">
+                    <div id="map-canvas1"></div>
                 </div>
             </div>
         </div>
     <br/>
         <script>
-              var map, heatmap;
+              var map;
 
               function initMap() {
-                map = new google.maps.Map(document.getElementById('map-canvas'), {
-                  zoom: 9,
-                  center: {lat: -37.96, lng: 145},
-                  mapTypeId: 'hybrid'
+                map = new google.maps.Map(document.getElementById('map-canvas1'), {
+                  zoom: 4,
+                  center: {lat: -27.5480766, lng: 133.5},
+                  mapTypeId: 'roadmap'
                 });
-
-                heatmap = new google.maps.visualization.HeatmapLayer({
-                  //data: null,
-                  map: map, 
-                  radius: 30
-                });
+                var LatLng = [{lat: -37.675143, lng: 144.84782},{lat: -37.67039492, lng: 144.84850288},{lat: -37.66731786, lng: 144.8498251},{lat: -37.66823672, lng: 144.85052336},{lat: -37.66880485, lng: 144.85071553},{lat: -37.66843061, lng: 144.84624222},{lat: -37.66846655, lng: 144.85064035},{lat: -37.6710844, lng: 144.84753167},{lat: -37.6713, lng: 144.847},{lat: -37.67120198, lng: 144.84838486},{lat: -34.9333, lng: 138.6},{lat: -34.93924637, lng: 138.53691101},{lat: -34.93918266, lng: 138.5371273},{lat: -34.93860981, lng: 138.5376893},{lat: -34.93811082, lng: 138.53818084},{lat: -27.38975406, lng: 153.11684132},{lat: -27.38322039, lng: 153.1205578},{lat: -27.40360004, lng: 153.12526714},{lat: -27.3068448, lng: 152.9901005},{lat: -27.38516, lng: 153.11913},{lat: -27.38654458, lng: 153.11918106},{lat: -27.38541366, lng: 153.12034025},{lat: -28.1668135, lng: 153.51304436},{lat: -27.38975406, lng: 153.11684132},{lat: -27.38541366, lng: 153.12034025},{lat: -35.30785895, lng: 149.19016521},{lat: -35.307492, lng: 149.190707},{lat: -35.3081, lng: 149.124},{lat: -35.307353, lng: 149.190413},{lat: -31.93325547, lng: 115.96100128},{lat: -31.93338358, lng: 115.96094938},{lat: -31.933574, lng: 115.960969},{lat: -31.93325547, lng: 115.96100128},{lat: -31.948932, lng: 115.8750554},{lat: -31.93324, lng: 115.960833},{lat: -33.93607417, lng: 151.17067504},{lat: -33.93607417, lng: 151.17067504},{lat: -33.93346262, lng: 151.17886101},{lat: -33.93600807, lng: 151.16761737},{lat: -33.93607417, lng: 151.17067504},{lat: -33.934135, lng: 151.178967},{lat: -33.93498328, lng: 151.17759221},{lat: -33.935004, lng: 151.17962801}];
+                  // console.log(LatLng);
+                  var markers = [];
+                  for(i = 0; i < LatLng.length; i++){
+                    var marker = new google.maps.Marker({
+                        position: LatLng[i],
+                        map: map
+                      });
+                    markers.push(marker);
+                  };
+                  var markerCluster = new MarkerClusterer(map, markers,
+                        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
               }
+
+              
+
+        </script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <script async defer string APIkey = "AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0"; src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQBLox4iZGLk4CjpHtJf1FgxyNY0e8jX0&callback=initMap"></script>
 </body>
 </html>

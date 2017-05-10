@@ -59,7 +59,7 @@ app.get('/app2', function(req, res){
 	couch.get(dbName, viewUrl).then(
 		function(data, headers, status){
 			// console.log(data.data.rows);
-			res.render('app1',{
+			res.render('app2',{
 				emlbourne_ans: data.data.rows
 			});
 		},
@@ -72,7 +72,7 @@ app.get('/app3', function(req, res){
 	couch.get(dbName, viewUrl).then(
 		function(data, headers, status){
 			// console.log(data.data.rows);
-			res.render('app1',{
+			res.render('app3',{
 				emlbourne_ans: data.data.rows
 			});
 		},
