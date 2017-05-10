@@ -22,24 +22,18 @@ couch.listDatabases().then(function(dbs){
 	console.log(dbs);
 });
 
-app.use('/cssFiles', express.static(__dirname + '/assets'));
+app.use('/cssFiles', express.static(__dirname + '/static'));
 app.use('/BStrap', express.static(__dirname + '/bootstrap'));
 app.use('/Img', express.static(__dirname + '/img'));
 
-// app.get('/', function(req, resp) {
-// 	resp.sendFile('index.ejs', {root: path.join(__dirname, './Views')});
-// });
-
-app.use('/BStrap', express.static(__dirname + '/bootstrap'));
-
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'files'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', function(req, res){
-	res.sendFile('home.html', {root: path.join(__dirname, './files')});
+	res.sendFile('home.html', {root: path.join(__dirname, './views')});
 });
 
 app.get('/app1', function(req, res){

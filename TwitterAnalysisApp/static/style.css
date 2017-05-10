@@ -7,13 +7,20 @@ body{
   background-color: rgba(0,0,0,0.5);
   height: 100%;
   width: 100%;
+  border-width: 0;
   padding-left: 0;
   padding-right: 0;
   margin: 0;
 }
+.container-border{
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
 #map-canvas {
-  width: 600px;
-  height: 550px;
+  width: 550px;
+  height: 500px;
   background-color: grey;
 }
 #map-canvas1 {

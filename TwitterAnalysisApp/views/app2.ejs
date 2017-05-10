@@ -8,19 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body> 
-        <div class = "container">
+        <div class = "container-border">
             <div class = "row">
-                <div class="col-md-4">
-                    <br><br><br><br><br><br>
-                    <img src="/Img/Aurin_chart.png" class="img img-responsive">
-                </div>
-                <div class="col-md-2">
-                    <br><br><br><br><br><br><br>
-                    <img src="/Img/Aurin_country.png" class="img1 img-responsive">
-                </div>
                 <div align = "center" class="col-md-6">
                     <div id="floating-panel">
-                        <br><br><br>
+                        <br>
                         <a class="btn btn-warning" onclick="getArabic()">Arabic</a>
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-info" onclick="getSpanish()">Spanish</a>
@@ -32,11 +24,19 @@
                         <a class="btn btn-primary" onclick="getJapanese()">Japnanese</a>
                         &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-dark" onclick="clearData()">Clear</a>
-                        <br><br>
-                        <div id="map-canvas"></div>
                         <br>
+                        <div id="map-canvas"></div>
                     </div>
                 </div>
+                <div align = "left" class="col-md-4">
+                    <br><br><br><br>
+                    <img src="/Img/Aurin_chart.png" class="img img-responsive">
+                </div>
+                <div class="col-md-2">
+                    <br><br><br><br><br>
+                    <img src="/Img/Aurin_country.png" class="img1 img-responsive">
+                </div>
+                
             </div>
         </div>
     <br/>
@@ -54,6 +54,7 @@
               function initMap() {
                 map = new google.maps.Map(document.getElementById('map-canvas'), {
                   zoom: 9,
+                  minZoom: 9,
                   center: {lat: -37.96, lng: 145},
                   mapTypeId: 'hybrid'
                 });
