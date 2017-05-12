@@ -1,5 +1,5 @@
 # AuCityAnalytics
-# Visit our webpage http://130.56.255.16/
+# Visit our web application on http://130.56.255.16/
 
 As messages explode the internet and the social media, information data has became a huge wealth to show human’s behaviors and their daily life. People is more likely to share their life and thoughts via the social network like Twitter for the recent decade. The data from the social network can exposure social phenomenons and cultural backgrounds which is valuable for the analysis. Comparing different attributes with data from social network on some specific topic can create many meaningful results. After collecting data from the Twitter around main city of Australia, some interesting analyzes can be raised after processing them.   
 
@@ -34,4 +34,4 @@ $ansible-playbook -i path/to/playbook/hosts --key-file=path/to/playbook/cloud.ke
 4. Run the web server on instance.
 $start hello.js
 5. Access to web application
-$ssh -i keyforinstance.key -L 127.0.0.1:3000:127.0.0.1:3000 ubuntu@130.56.255.16 Input http://127.0.0.1:3000 in address bar to access.
+http://130.56.255.16/
