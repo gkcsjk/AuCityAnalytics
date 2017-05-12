@@ -1,4 +1,5 @@
 # AuCityAnalytics
+# Visit our webpage http://130.56.255.16/
 
 As messages explode the internet and the social media, information data has became a huge wealth to show human’s behaviors and their daily life. People is more likely to share their life and thoughts via the social network like Twitter for the recent decade. The data from the social network can exposure social phenomenons and cultural backgrounds which is valuable for the analysis. Comparing different attributes with data from social network on some specific topic can create many meaningful results. After collecting data from the Twitter around main city of Australia, some interesting analyzes can be raised after processing them.   
 
